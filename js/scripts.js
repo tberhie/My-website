@@ -39,4 +39,19 @@
     $("body").scrollspy({
         target: "#sideNav",
     });
+
+       // Fetch and update visitor counter from DynamoDB through API Gateway
+  $(document).ready(function () {
+    // API Gateway endpoint URL
+    const apiUrl = 'https://{api-id}.execute-api.{region}.amazonaws.com/prod/count';
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Display the updated count on the page
+            $('#visitor-count').text(data.count);
+        })
+        .catch(error => console.error('Error fetching visitor count:', error));
+});
+       
 })(jQuery); // End of use strict
