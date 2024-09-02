@@ -40,18 +40,34 @@
         target: "#sideNav",
     });
 
-       // Fetch and update visitor counter from DynamoDB through API Gateway
-  $(document).ready(function () {
-    // API Gateway endpoint URL
-    const apiUrl = 'https://{api-id}.execute-api.{region}.amazonaws.com/prod/count';
+//        // Fetch and update visitor counter from DynamoDB through API Gateway
+//   $(document).ready(function () {
+//     // API Gateway endpoint URL
+//     const apiUrl = 'https://{api-id}.execute-api.{region}.amazonaws.com/prod/count';
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Display the updated count on the page
-            $('#visitor-count').text(data.count);
-        })
-        .catch(error => console.error('Error fetching visitor count:', error));
-});
+//     fetch(apiUrl)
+//         .then(response => response.json())
+//         .then(data => {
+//             // Display the updated count on the page
+//             $('#visitor-count').text(data.count);
+//         })
+//         .catch(error => console.error('Error fetching visitor count:', error));
+// });
+
+       async function updateVisitorCount() {
+    try {
+        const response = await fetch('https://gn7s0qhoh8.execute-api.us-east-1.amazonaws.com/practice/count', {
+            method: 'POST', // Use POST to update the count
+        });
+        const data = await response.json();
+        console.log('Visitor count updated:', data.count); // Log the updated count
+    } catch (error) {
+        console.error('Error updating visitor count:', error); // Log any errors
+    }
+}
+
+// Call the function when the page loads or based on your requirement
+updateVisitorCount();
+
        
 })(jQuery); // End of use strict
